@@ -1,7 +1,3 @@
-// VEDANT JUMLE
-// ROLL N0. 23T3075
-
-
 class Student {
     int id;
     String name;
@@ -102,35 +98,34 @@ class StudentLinkedList {
         }
     }
 
-    // Sort students by age using bubble sort (basic comparison)
+    // Sort students by age without using a swapped flag
     public void sortStudentsByAge() {
-        if (head == null || head.next == null) {
-            return;
-        }
-        boolean swapped;
-        do {
-            swapped = false;
-            Student current = head;
-            while (current.next != null) {
-                if (current.age > current.next.age) {
-                    // Swap current and next nodes' data
+        Student current = head;
+        
+        // Outer loop to ensure the entire list is sorted
+        while (current != null) {
+            Student index = current.next;
+            
+            // Inner loop to compare the current node with the rest of the nodes
+            while (index != null) {
+                if (current.age > index.age) {
+                    // Swap data if the current node's age is greater than the next node's age
                     int tempId = current.id;
                     String tempName = current.name;
                     int tempAge = current.age;
 
-                    current.id = current.next.id;
-                    current.name = current.next.name;
-                    current.age = current.next.age;
+                    current.id = index.id;
+                    current.name = index.name;
+                    current.age = index.age;
 
-                    current.next.id = tempId;
-                    current.next.name = tempName;
-                    current.next.age = tempAge;
-
-                    swapped = true;
+                    index.id = tempId;
+                    index.name = tempName;
+                    index.age = tempAge;
                 }
-                current = current.next;
+                index = index.next;
             }
-        } while (swapped);
+            current = current.next;
+        }
         System.out.println("Students sorted by age!");
     }
 }
@@ -139,7 +134,7 @@ public class StudentManagementSystem {
     public static void main(String[] args) {
         StudentLinkedList studentList = new StudentLinkedList();
 
-        
+        // Adding hardcoded values for testing
         studentList.insertStudent(1, "Alice", 20);
         studentList.insertStudent(2, "Bob", 22);
         studentList.insertStudent(3, "Charlie", 21);
