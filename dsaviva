@@ -4,7 +4,7 @@ class Student {
     int age;
     Student next;
 
-    // Constructor
+   
     public Student(int id, String name, int age) {
         this.id = id;
         this.name = name;
@@ -98,15 +98,15 @@ class StudentLinkedList {
         }
     }
 
-    // Sort students by age without using a swapped flag
+  
     public void sortStudentsByAge() {
         Student current = head;
         
-        // Outer loop to ensure the entire list is sorted
+        
         while (current != null) {
             Student index = current.next;
             
-            // Inner loop to compare the current node with the rest of the nodes
+           
             while (index != null) {
                 if (current.age > index.age) {
                     // Swap data if the current node's age is greater than the next node's age
@@ -134,12 +134,12 @@ public class StudentManagementSystem {
     public static void main(String[] args) {
         StudentLinkedList studentList = new StudentLinkedList();
 
-        // Adding hardcoded values for testing
+
         studentList.insertStudent(1, "Alice", 20);
         studentList.insertStudent(2, "Bob", 22);
         studentList.insertStudent(3, "Charlie", 21);
 
-        // Test operations
+      
         studentList.traverseStudents(); // Display all students
         System.out.println();
 
