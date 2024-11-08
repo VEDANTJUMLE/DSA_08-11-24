@@ -1,0 +1,161 @@
+class Student {
+    int id;
+    String name;
+    int age;
+    Student next;
+
+    // Constructor
+    public Student(int id, String name, int age) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.next = null;
+    }
+
+    // Method to display student details
+    public void display() {
+        System.out.println("ID: " + id + ", Name: " + name + ", Age: " + age);
+    }
+}
+
+class StudentLinkedList {
+    Student head;
+
+    // Insert a new student record at the end of the list
+    public void insertStudent(int id, String name, int age) {
+        Student newStudent = new Student(id, name, age);
+        if (head == null) {
+            head = newStudent;
+        } else {
+            Student temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newStudent;
+        }
+        System.out.println("Student added successfully!");
+    }
+
+    // Update a student record by ID
+    public void updateStudent(int id, String newName, int newAge) {
+        Student temp = head;
+        while (temp != null) {
+            if (temp.id == id) {
+                temp.name = newName;
+                temp.age = newAge;
+                System.out.println("Student updated successfully!");
+                return;
+            }
+            temp = temp.next;
+        }
+        System.out.println("Student not found!");
+    }
+
+    // Delete a student record by ID
+    public void deleteStudent(int id) {
+        if (head == null) {
+            System.out.println("List is empty!");
+            return;
+        }
+        if (head.id == id) {
+            head = head.next;
+            System.out.println("Student deleted successfully!");
+            return;
+        }
+        Student temp = head;
+        while (temp.next != null) {
+            if (temp.next.id == id) {
+                temp.next = temp.next.next;
+                System.out.println("Student deleted successfully!");
+                return;
+            }
+            temp = temp.next;
+        }
+        System.out.println("Student not found!");
+    }
+
+    // Search for a student by ID
+    public void searchStudent(int id) {
+        Student temp = head;
+        while (temp != null) {
+            if (temp.id == id) {
+                System.out.print("Student found: ");
+                temp.display();
+                return;
+            }
+            temp = temp.next;
+        }
+        System.out.println("Student not found!");
+    }
+
+    // Display all student records
+    public void traverseStudents() {
+        System.out.println("Student List:");
+        Student temp = head;
+        while (temp != null) {
+            temp.display();
+            temp = temp.next;
+        }
+    }
+
+    // Sort students by age using bubble sort (basic comparison)
+    public void sortStudentsByAge() {
+        if (head == null || head.next == null) {
+            return;
+        }
+        boolean swapped;
+        do {
+            swapped = false;
+            Student current = head;
+            while (current.next != null) {
+                if (current.age > current.next.age) {
+                    // Swap current and next nodes' data
+                    int tempId = current.id;
+                    String tempName = current.name;
+                    int tempAge = current.age;
+
+                    current.id = current.next.id;
+                    current.name = current.next.name;
+                    current.age = current.next.age;
+
+                    current.next.id = tempId;
+                    current.next.name = tempName;
+                    current.next.age = tempAge;
+
+                    swapped = true;
+                }
+                current = current.next;
+            }
+        } while (swapped);
+        System.out.println("Students sorted by age!");
+    }
+}
+
+public class StudentManagementSystem {
+    public static void main(String[] args) {
+        StudentLinkedList studentList = new StudentLinkedList();
+
+        
+        studentList.insertStudent(1, "Alice", 20);
+        studentList.insertStudent(2, "Bob", 22);
+        studentList.insertStudent(3, "Charlie", 21);
+
+        // Test operations
+        studentList.traverseStudents(); // Display all students
+        System.out.println();
+
+        studentList.searchStudent(2); // Search for student with ID 2
+        System.out.println();
+
+        studentList.updateStudent(2, "Bobby", 23); // Update student with ID 2
+        studentList.traverseStudents(); // Display all students
+        System.out.println();
+
+        studentList.deleteStudent(1); // Delete student with ID 1
+        studentList.traverseStudents(); // Display all students
+        System.out.println();
+
+        studentList.sortStudentsByAge(); // Sort students by age
+        studentList.traverseStudents(); // Display all students
+    }
+}
